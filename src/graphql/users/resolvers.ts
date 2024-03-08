@@ -7,7 +7,18 @@ const queries = {
     const token = await UserServices.getUserToken({email : payload.email , password : payload.password})
 
     return token
-  }
+  },
+
+  getCurrentLoggedInUser: async (_: any, parameters: any, context: any) => {
+    if (await context && await context.user) {
+      const id = context.user.id;
+      const user = await UserServices.getUserById(id);
+      return user;
+    }
+    console.log(context);
+    
+    throw new Error("I dont know who are you");
+  },
 };
 
 

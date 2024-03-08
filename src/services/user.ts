@@ -40,6 +40,16 @@ class UserServices {
     return user
   }
 
+  public static getUserById(id: string) {
+    return prismaClient.user.findUnique({ where: { id } });
+  }
+
+  public static decodeUser(token:string){
+    console.log(token , JWTSECRET);
+    
+    return jwt.verify(token , JWTSECRET)
+  }
+
   private static getUserByEmail(email:string){
     return prismaClient.user.findUnique({where : {email}})
   }
